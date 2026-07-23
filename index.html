@@ -7,18 +7,42 @@
     <style>
         /* 기본 웹 폰트 및 스타일 초기화 */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        /* 레터링용 감성 영문 폰트 추가 */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        
         body { font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; background-color: #f7f7f7; color: #333; text-align: center; }
         
         /* 모바일 화면에 맞춘 컨테이너 */
-        .container { max-width: 480px; margin: 0 auto; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.05); overflow: hidden; }
+        .container { max-width: 480px; margin: 0 auto; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.05); overflow: hidden; position: relative; }
         
-        /* 메인 커버 영역 */
-        .title-area { padding: 60px 20px 40px; }
-        .date { font-size: 1.1em; color: #888; margin-bottom: 15px; letter-spacing: 2px; }
-        .names { font-size: 2em; font-weight: 600; margin-bottom: 25px; color: #222; }
-        .sub-text { font-size: 1em; color: #666; }
-        .cover-img { width: 100%; display: block; background-color: #eee; min-height: 400px; object-fit: cover; }
+        /* 1. 메인 커버 및 레터링 오버레이 */
+        .main-cover-container { position: relative; width: 100%; }
+        .cover-img { width: 100%; display: block; background-color: #eee; min-height: 500px; object-fit: cover; filter: brightness(0.9); }
         
+        .cover-lettering {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            width: 100%;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4); /* 글씨가 잘 보이도록 그림자 추가 */
+        }
+        .cover-lettering .main-names {
+            font-family: 'Playfair Display', serif; /* 우아한 영문 폰트 */
+            font-size: 2.8em;
+            font-style: italic;
+            margin: 0 0 10px 0;
+            font-weight: 400;
+        }
+        .cover-lettering .main-date {
+            font-size: 0.9em;
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
         /* 공통 섹션 스타일 */
         section { padding: 60px 20px; border-bottom: 1px solid #f0f0f0; }
         h2 { font-size: 1.1em; color: #b89f7d; margin-bottom: 30px; letter-spacing: 3px; font-weight: 500; }
@@ -45,21 +69,46 @@
         
         /* 푸터 */
         footer { padding: 40px; background: #fafafa; font-size: 0.8em; color: #999; }
+
+        /* BGM 플로팅 버튼 */
+        .bgm-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 10px 16px;
+            font-size: 0.85em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            color: #555;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bgm-btn.playing {
+            background: #b89f7d;
+            color: #fff;
+            border-color: #b89f7d;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         
-        <!-- 1. 메인 커버 -->
-        <div class="title-area">
-            <div class="date">2026. 10. 03. SAT</div>
-            <div class="names">박윤기 & 예은</div>
-            <div class="sub-text">저희 결혼합니다</div>
+        <!-- 1. 메인 커버 및 사진 위 레터링 -->
+        <div class="main-cover-container">
+            <img src="./images/main.jpg" alt="메인 웨딩 사진" class="cover-img" onerror="this.src='https://via.placeholder.com/480x700?text=Main+Photo'">
+            <div class="cover-lettering">
+                <p class="main-names">Yun-gi & Yeeun</p>
+                <p class="main-date">We are getting married</p>
+            </div>
         </div>
         
-        <!-- 메인 사진 (images 폴더 안의 main.jpg를 불러옵니다) -->
-        <img src="./images/main.jpg" alt="메인 웨딩 사진" class="cover-img" onerror="this.src='https://via.placeholder.com/480x640?text=Main+Photo'">
-
         <!-- 2. 모시는 글 -->
         <section>
             <h2>INVITATION</h2>
@@ -68,7 +117,8 @@
                 이제 함께 한 곳을 바라보며 걸어갈 수 있는<br>
                 큰 사랑으로 키우고자 합니다.<br><br>
                 저희 두 사람이 사랑의 이름으로 지켜나갈 수 있게<br>
-                앞날을 축복해 주시면 감사하겠습니다.
+                앞날을 축복해 주시면 감사하겠습니다.<br><br>
+                <b>박윤기 · 예은</b>
             </div>
         </section>
 
@@ -76,7 +126,6 @@
         <section>
             <h2>GALLERY</h2>
             <div class="gallery">
-                <!-- 사진 30장 중 일부를 바둑판 배열로 노출하는 예시입니다 -->
                 <img src="./images/photo1.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+1'">
                 <img src="./images/photo2.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+2'">
                 <img src="./images/photo3.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+3'">
@@ -84,14 +133,13 @@
                 <img src="./images/photo5.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+5'">
                 <img src="./images/photo6.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+6'">
             </div>
-            <p style="font-size: 0.8em; color: #999; margin-top: 20px;">사진 30장 나열할 곳  3열 바둑판</p>
         </section>
 
         <!-- 4. 영상 편지 / 스튜디오 영상 -->
         <section>
             <h2>OUR MOMENTS</h2>
             <div class="video-container">
-                <!-- 유튜브에서 '퍼가기' 코드를 복사하여 이 아래 <iframe>을 교체하세요 -->
+                <!-- 반드시 watch?v= 대신 embed/ 주소를 사용하세요 -->
                 <iframe src="https://www.youtube.com/embed/Jp-DHuvahSU" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
@@ -103,7 +151,6 @@
                 <p style="font-weight: 600; font-size: 1.1em;">라포에트(구.광명역사컨벤션)</p>
                 <p style="font-size: 0.9em; color: #666;">경기도 광명시 광명역로 21 동편 지하1층<br>02-889-7400</p>
             </div>
-            <!-- 지도 영역 (추후 카카오맵 API 등으로 대체) -->
             <div class="map-area">
                 여기에 네이버/카카오 지도 연동
             </div>
@@ -120,14 +167,40 @@
             
             <div class="account-box">
                 <p style="font-weight: 600;">신부측</p>
-                <p class="bank">○○은행 987-654-321098 (신예은)</p>
+                <p class="bank">○○은행 987-654-321098 (예은)</p>
             </div>
         </section>
         
         <footer>
             © 2026 Yungi & Yeeun
         </footer>
+
+        <!-- BGM 오디오 및 버튼 -->
+        <audio id="bgm-audio" src="./audio/bgm.mp3" loop></audio>
+        <button id="bgm-toggle" class="bgm-btn"><span>🎵</span> BGM 켜기</button>
         
     </div>
+
+    <!-- BGM 재생/정지 자바스크립트 -->
+    <script>
+        const bgmAudio = document.getElementById('bgm-audio');
+        const bgmToggleBtn = document.getElementById('bgm-toggle');
+        let isPlaying = false;
+
+        bgmToggleBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                // 재생 중일 때 버튼을 누르면 정지
+                bgmAudio.pause();
+                bgmToggleBtn.classList.remove('playing');
+                bgmToggleBtn.innerHTML = '<span>🎵</span> BGM 켜기';
+            } else {
+                // 정지 중일 때 버튼을 누르면 재생
+                bgmAudio.play();
+                bgmToggleBtn.classList.add('playing');
+                bgmToggleBtn.innerHTML = '<span>⏸️</span> BGM 끄기';
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
 </body>
 </html>
