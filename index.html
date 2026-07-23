@@ -196,7 +196,7 @@
     <!-- 기능 제어 자바스크립트 -->
     <script>
         // 1. 타이핑 애니메이션 기능
-        const nameText = "Yun-gi & Yeeun";
+        const nameText = "Yungi & Yeeun";
         const dateText = "We are getting married";
         
         const nameEl = document.getElementById('type-name');
@@ -209,12 +209,11 @@
             if (nameIndex < nameText.length) {
                 nameEl.innerHTML += nameText.charAt(nameIndex);
                 nameIndex++;
-                setTimeout(typeName, 100); // 이름 타이핑 속도 (100ms)
+                setTimeout(typeName, 100);
             } else {
-                // 이름 작성이 끝나면 커서를 지우고 아래 날짜 작성 시작
                 nameEl.classList.remove('typing-cursor');
                 dateEl.classList.add('typing-cursor');
-                setTimeout(typeDate, 500); // 0.5초 쉬고 시작
+                setTimeout(typeDate, 500);
             }
         }
 
@@ -222,17 +221,16 @@
             if (dateIndex < dateText.length) {
                 dateEl.innerHTML += dateText.charAt(dateIndex);
                 dateIndex++;
-                setTimeout(typeDate, 70); // 날짜 타이핑 속도 (70ms)
+                setTimeout(typeDate, 70);
             } else {
-                // 작성이 모두 끝나면 2초 뒤 커서 깜빡임 제거
                 setTimeout(() => { dateEl.classList.remove('typing-cursor'); }, 2000);
             }
         }
 
-        // 페이지 로딩 완료 시 타이핑 시작
-        window.addEventListener('load', () => {
+        // 수정된 부분: load 대신 DOMContentLoaded 사용 (사진 로딩 전 즉시 실행)
+        document.addEventListener('DOMContentLoaded', () => {
             nameEl.classList.add('typing-cursor');
-            setTimeout(typeName, 800); // 페이지 열리고 0.8초 뒤 시작
+            setTimeout(typeName, 500); // 0.5초 뒤 바로 시작
         });
 
 
