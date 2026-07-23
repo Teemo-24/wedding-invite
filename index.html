@@ -26,21 +26,37 @@
             transform: translate(-50%, -50%);
             color: #fff;
             width: 100%;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.4); /* 글씨가 잘 보이도록 그림자 추가 */
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
         }
+        
         .cover-lettering .main-names {
-            font-family: 'Playfair Display', serif; /* 우아한 영문 폰트 */
+            font-family: 'Playfair Display', serif;
             font-size: 2.8em;
             font-style: italic;
             margin: 0 0 10px 0;
             font-weight: 400;
+            min-height: 1.2em; /* 애니메이션 전 공간 확보 */
         }
+        
         .cover-lettering .main-date {
             font-size: 0.9em;
             letter-spacing: 4px;
             margin: 0;
             font-weight: 300;
             text-transform: uppercase;
+            min-height: 1.2em;
+        }
+
+        /* 타이핑 깜빡임 커서 효과 */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            font-weight: 300;
+            margin-left: 4px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* 공통 섹션 스타일 */
@@ -50,7 +66,7 @@
         /* 인사말 */
         .greeting-text { line-height: 2.2; color: #555; font-size: 0.95em; }
         
-        /* 사진 갤러리 (그리드 레이아웃) */
+        /* 사진 갤러리 */
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
         .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; background-color: #eee; border-radius: 4px; }
         
@@ -90,11 +106,7 @@
             align-items: center;
             gap: 6px;
         }
-        .bgm-btn.playing {
-            background: #b89f7d;
-            color: #fff;
-            border-color: #b89f7d;
-        }
+        .bgm-btn.playing { background: #b89f7d; color: #fff; border-color: #b89f7d; }
     </style>
 </head>
 <body>
@@ -104,8 +116,9 @@
         <div class="main-cover-container">
             <img src="./images/main.jpg" alt="메인 웨딩 사진" class="cover-img" onerror="this.src='https://via.placeholder.com/480x700?text=Main+Photo'">
             <div class="cover-lettering">
-                <p class="main-names">Yun-gi & Yeeun</p>
-                <p class="main-date">We are getting married</p>
+                <!-- 내용이 자바스크립트를 통해 타이핑됩니다 -->
+                <p class="main-names" id="type-name"></p>
+                <p class="main-date" id="type-date"></p>
             </div>
         </div>
         
@@ -118,7 +131,7 @@
                 큰 사랑으로 키우고자 합니다.<br><br>
                 저희 두 사람이 사랑의 이름으로 지켜나갈 수 있게<br>
                 앞날을 축복해 주시면 감사하겠습니다.<br><br>
-                <b>박윤기 · 예은</b>
+                <b>박윤기 · 신예은</b>
             </div>
         </section>
 
@@ -139,7 +152,6 @@
         <section>
             <h2>OUR MOMENTS</h2>
             <div class="video-container">
-                <!-- 반드시 watch?v= 대신 embed/ 주소를 사용하세요 -->
                 <iframe src="https://www.youtube.com/embed/Jp-DHuvahSU" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
@@ -167,7 +179,7 @@
             
             <div class="account-box">
                 <p style="font-weight: 600;">신부측</p>
-                <p class="bank">○○은행 987-654-321098 (예은)</p>
+                <p class="bank">○○은행 987-654-321098 (신예은)</p>
             </div>
         </section>
         
@@ -181,20 +193,60 @@
         
     </div>
 
-    <!-- BGM 재생/정지 자바스크립트 -->
+    <!-- 기능 제어 자바스크립트 -->
     <script>
+        // 1. 타이핑 애니메이션 기능
+        const nameText = "Yun-gi & Yeeun";
+        const dateText = "We are getting married";
+        
+        const nameEl = document.getElementById('type-name');
+        const dateEl = document.getElementById('type-date');
+        
+        let nameIndex = 0;
+        let dateIndex = 0;
+
+        function typeName() {
+            if (nameIndex < nameText.length) {
+                nameEl.innerHTML += nameText.charAt(nameIndex);
+                nameIndex++;
+                setTimeout(typeName, 100); // 이름 타이핑 속도 (100ms)
+            } else {
+                // 이름 작성이 끝나면 커서를 지우고 아래 날짜 작성 시작
+                nameEl.classList.remove('typing-cursor');
+                dateEl.classList.add('typing-cursor');
+                setTimeout(typeDate, 500); // 0.5초 쉬고 시작
+            }
+        }
+
+        function typeDate() {
+            if (dateIndex < dateText.length) {
+                dateEl.innerHTML += dateText.charAt(dateIndex);
+                dateIndex++;
+                setTimeout(typeDate, 70); // 날짜 타이핑 속도 (70ms)
+            } else {
+                // 작성이 모두 끝나면 2초 뒤 커서 깜빡임 제거
+                setTimeout(() => { dateEl.classList.remove('typing-cursor'); }, 2000);
+            }
+        }
+
+        // 페이지 로딩 완료 시 타이핑 시작
+        window.addEventListener('load', () => {
+            nameEl.classList.add('typing-cursor');
+            setTimeout(typeName, 800); // 페이지 열리고 0.8초 뒤 시작
+        });
+
+
+        // 2. BGM 재생/정지 기능
         const bgmAudio = document.getElementById('bgm-audio');
         const bgmToggleBtn = document.getElementById('bgm-toggle');
         let isPlaying = false;
 
         bgmToggleBtn.addEventListener('click', function() {
             if (isPlaying) {
-                // 재생 중일 때 버튼을 누르면 정지
                 bgmAudio.pause();
                 bgmToggleBtn.classList.remove('playing');
                 bgmToggleBtn.innerHTML = '<span>🎵</span> BGM 켜기';
             } else {
-                // 정지 중일 때 버튼을 누르면 재생
                 bgmAudio.play();
                 bgmToggleBtn.classList.add('playing');
                 bgmToggleBtn.innerHTML = '<span>⏸️</span> BGM 끄기';
