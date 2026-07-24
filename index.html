@@ -16,6 +16,8 @@
         /* 기본 웹 폰트 및 스타일 초기화 */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        /* 👇 여기에 필기체 폰트 추가 */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
         
         body { font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; background-color: #f7f7f7; color: #333; text-align: center; }
 
@@ -47,7 +49,15 @@
             text-shadow: 1px 1px 6px rgba(0,0,0,0.4); 
         }
         .cover-lettering .main-names { font-family: 'Playfair Display', serif; font-size: 2.8em; font-style: italic; margin: 0 0 10px 0; font-weight: 400; min-height: 1.2em; }
-        .cover-lettering .main-date { font-size: 0.9em; letter-spacing: 4px; margin: 0; font-weight: 300; text-transform: uppercase; min-height: 1.2em; }
+        .cover-lettering .main-date { 
+            font-family: 'Great Vibes', cursive; /* 부드러운 필기체 적용 */
+            font-size: 1.8em; /* 필기체는 기본 크기가 작아 큼직하게 키움 */
+            letter-spacing: 1px; /* 자간 축소 (필기체는 글자가 이어져야 예쁨) */
+            margin: 0; 
+            font-weight: 400; 
+            text-transform: none; /* 강제 대문자 해제 */
+            min-height: 1.2em; 
+        }
 
         /* 타이핑 깜빡임 커서 효과 */
         .typing-cursor::after { content: '|'; animation: blink 0.8s infinite; font-weight: 300; margin-left: 4px; }
