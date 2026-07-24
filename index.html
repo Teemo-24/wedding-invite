@@ -69,18 +69,14 @@
         .size-2x-tall { grid-row: span 2; }
         .size-2x-wide { grid-column: span 2; }
 
-        /* 💡 1:1 비율 4장 한 줄 배치용 컨테이너 */
-        .row-of-4 { 
-            grid-column: span 2; /* 가로 2칸(전체)을 모두 차지 */
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); /* 내부를 4칸으로 쪼갬 */
-            gap: 10px; 
-            background-color: transparent !important; /* 부모 스타일 덮어쓰기 */
-            border-radius: 0 !important;
-            align-items: center; /* 1:1 비율을 유지하며 세로 중앙에 예쁘게 정렬 */
+        /* 💡 1:1 비율 4장 한 줄 배치 (여백 제거용) */
+        .gallery.row-of-4-standalone { 
+            grid-template-columns: repeat(4, 1fr); /* 4칸으로 쪼개기 */
+            grid-auto-rows: auto; /* 고정 높이를 해제하여 빈 여백 삭제 */
+            margin: 10px 0; /* 위아래 갤러리와 똑같이 10px 간격 유지 */
         }
-        .row-of-4 div {
-            aspect-ratio: 1; /* 사진을 무조건 1:1 정사각형 비율로 강제 */
+        .gallery.row-of-4-standalone div {
+            aspect-ratio: 1; /* 사진을 완벽한 1:1 정사각형 비율로 맞춤 */
         }
         
         /* 동영상 영역 */
@@ -155,36 +151,30 @@
         <!-- 3. 사진첩 (갤러리) -->
         <section>
             <h2>GALLERY</h2>
+            
+            <!-- [상단] 테트리스 영역 -->
             <div class="gallery">
-                
-                <!-- 부메인 사진 (가로2 x 세로2) -->
                 <div class="size-4x"><img src="./images/photo1.jpg" onerror="this.src='https://via.placeholder.com/480x480?text=Photo+1+(4x)'"></div>
-                
-                <!-- 일반 1칸 -->
                 <div><img src="./images/photo2.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+2'"></div>
-                
-                <!-- 세로 액자형 (가로1 x 세로2) -->
                 <div class="size-2x-tall"><img src="./images/photo3.jpg" onerror="this.src='https://via.placeholder.com/240x360?text=Photo+3+(Tall)'"></div>
-                
-                <!-- 일반 1칸 -->
                 <div><img src="./images/photo4.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+4'"></div>
-                
-                <!-- 💡 [수정된 부분] 1:1 비율 사진 4개를 한 줄(4칸)에 나란히 배치 -->
-                <div class="row-of-4">
-                    <div><img src="./images/photo7.jpg" onerror="this.src='https://via.placeholder.com/120?text=P7'"></div>
-                    <div><img src="./images/photo8.jpg" onerror="this.src='https://via.placeholder.com/120?text=P8'"></div>
-                    <div><img src="./images/photo9.jpg" onerror="this.src='https://via.placeholder.com/120?text=P9'"></div>
-                    <div><img src="./images/photo10.jpg" onerror="this.src='https://via.placeholder.com/120?text=P10'"></div>
-                </div>
+            </div>
+            
+            <!-- 💡 [중단] 1:1 비율 사진 4개 (여백이 생기지 않도록 독립된 영역으로 묶음) -->
+            <div class="gallery row-of-4-standalone">
+                <div><img src="./images/photo7.jpg" onerror="this.src='https://via.placeholder.com/120?text=P7'"></div>
+                <div><img src="./images/photo8.jpg" onerror="this.src='https://via.placeholder.com/120?text=P8'"></div>
+                <div><img src="./images/photo9.jpg" onerror="this.src='https://via.placeholder.com/120?text=P9'"></div>
+                <div><img src="./images/photo10.jpg" onerror="this.src='https://via.placeholder.com/120?text=P10'"></div>
+            </div>
 
-                <!-- 와이드 액자형 (가로2 x 세로1) -->
+            <!-- [하단] 테트리스 영역 -->
+            <div class="gallery">
                 <div class="size-2x-wide"><img src="./images/photo_wide.jpg" onerror="this.src='https://via.placeholder.com/480x180?text=Wide+Photo'"></div>
-                
-                <!-- 일반 1칸 -->
                 <div><img src="./images/photo5.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+5'"></div>
                 <div><img src="./images/photo6.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+6'"></div>
-                
             </div>
+            
         </section>
 
         <!-- 5. 오시는 길 -->
