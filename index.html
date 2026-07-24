@@ -37,7 +37,15 @@
         .main-cover-container { position: relative; width: 100%; }
         .cover-img { width: 100%; display: block; background-color: #eee; min-height: 500px; object-fit: cover; filter: brightness(0.9); }
         
-        .cover-lettering { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; width: 100%; text-shadow: 1px 1px 6px rgba(0,0,0,0.4); }
+        .cover-lettering { 
+            position: absolute; 
+            top: 10px; /* 💡 화면 위쪽에서 40px 만큼의 여백을 둡니다. (원하시면 숫자를 조절하세요) */
+            left: 50%; 
+            transform: translateX(-50%); /* 💡 세로 중앙 정렬을 해제하고 가로 중앙 정렬만 유지합니다 */
+            color: #fff; 
+            width: 100%; 
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4); 
+        }
         .cover-lettering .main-names { font-family: 'Playfair Display', serif; font-size: 2.8em; font-style: italic; margin: 0 0 10px 0; font-weight: 400; min-height: 1.2em; }
         .cover-lettering .main-date { font-size: 0.9em; letter-spacing: 4px; margin: 0; font-weight: 300; text-transform: uppercase; min-height: 1.2em; }
 
