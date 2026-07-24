@@ -67,18 +67,39 @@
         .greeting-text { line-height: 2.2; color: #555; font-size: 0.95em; }
         
         /* 📸 테트리스(메이슨리) 갤러리 스타일 */
+        /* 📸 테트리스(Grid) 갤러리 스타일 */
         .gallery { 
-            column-count: 2; /* 2단으로 세로 정렬 (원하면 3단으로 변경 가능) */
-            column-gap: 10px; /* 사진 좌우 간격 */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 가로를 정확히 2칸으로 나눔 */
+            grid-auto-rows: 180px; /* 기본 1칸의 세로 높이 (사진 비율에 맞춰 조절 가능) */
+            gap: 10px; /* 사진 사이 간격 */
             padding: 0 10px;
+            grid-auto-flow: dense; /* 테트리스 핵심 기술: 빈 공간이 생기면 다음 사진이 끌려와서 꽉꽉 채움 */
         }
+        
+        .gallery div {
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #eee;
+        }
+        
         .gallery img { 
             width: 100%; 
-            margin-bottom: 10px; /* 사진 상하 간격 */
-            border-radius: 8px; 
+            height: 100%; 
+            object-fit: cover; /* 사진 비율이 깨지지 않고 꽉 차게 잘림 */
             display: block;
-            break-inside: avoid; /* 사진이 중간에 반으로 잘리는 현상 방지 */
-            background-color: #eee;
+        }
+
+        /* 크기 조절용 클래스 */
+        .size-4x {
+            grid-column: span 2; /* 가로 2칸 차지 */
+            grid-row: span 2;    /* 세로 2칸 차지 (총 4칸 크기의 부메인) */
+        }
+        .size-2x-tall {
+            grid-row: span 2;    /* 세로 2칸 차지 (길쭉한 세로 액자형) */
+        }
+        .size-2x-wide {
+            grid-column: span 2; /* 가로 2칸 차지 (넓은 가로형) */
         }
         
         /* 동영상 영역 */
@@ -163,26 +184,38 @@
         <section>
             <h2>GALLERY</h2>
             <div class="gallery">
-                <img src="./images/photo1.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+1'">
-                <img src="./images/photo2.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+2'">
-                <img src="./images/photo3.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+3'">
-                <img src="./images/photo4.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+4'">
-                <img src="./images/photo5.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+5'">
-                <img src="./images/photo6.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+6'">
-                <img src="./images/photo7.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+7'">
-                <img src="./images/photo8.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+8'">
-                <img src="./images/photo9.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+9'">
-                <img src="./images/photo10.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+10'">
-                <img src="./images/photo11.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+11'">
-                <img src="./images/photo12.jpg" onerror="this.src='https://via.placeholder.com/240?text=Photo+12'">
-            </div>
-        </section>
+                
+                <!-- [요청 1] photo1: 4개 사진 크기 (가로2 x 세로2) 부메인 사진 -->
+                <div class="size-4x">
+                    <img src="./images/photo1.jpg" onerror="this.src='https://via.placeholder.com/480x480?text=Photo+1+(4x)'">
+                </div>
+                
+                <!-- 일반 크기 (1칸) -->
+                <div>
+                    <img src="./images/photo2.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+2'">
+                </div>
 
-        <!-- 4. 영상 편지 / 스튜디오 영상 -->
-        <section>
-            <h2>OUR MOMENTS</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/Jp-DHuvahSU" frameborder="0" allowfullscreen></iframe>
+                <!-- [요청 2] photo3: 세로 액자형 2개 크기 (가로1 x 세로2) -->
+                <div class="size-2x-tall">
+                    <img src="./images/photo3.jpg" onerror="this.src='https://via.placeholder.com/240x360?text=Photo+3+(Tall)'">
+                </div>
+
+                <!-- 일반 크기 (1칸) -->
+                <div>
+                    <img src="./images/photo4.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+4'">
+                </div>
+                
+                <!-- 가로로 넓은 사진이 필요할 때 예시 (가로2 x 세로1) -->
+                <!-- <div class="size-2x-wide"><img src="./images/photo5.jpg"></div> -->
+
+                <!-- 나머지 사진들도 <div> 안에 넣어서 쭉 나열하시면 됩니다 -->
+                <div>
+                    <img src="./images/photo5.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+5'">
+                </div>
+                <div>
+                    <img src="./images/photo6.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+6'">
+                </div>
+                
             </div>
         </section>
 
