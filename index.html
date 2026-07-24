@@ -205,16 +205,26 @@
                     <img src="./images/photo4.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+4'">
                 </div>
                 
-                <!-- 가로로 넓은 사진이 필요할 때 예시 (가로2 x 세로1) -->
-                <!-- <div class="size-2x-wide"><img src="./images/photo5.jpg"></div> -->
+                <!-- [요청 3] 가로 와이드 액자형 (가로 2칸 차지) -->
+                <!-- photo5, 6이 있던 두 칸의 자리를 하나로 합친 와이드 사진입니다. -->
+                <div class="size-2x-wide">
+                    <!-- 와이드 자리에 들어갈 새로운 사진 이름을 photo_wide.jpg 등으로 지정해 주세요 -->
+                    <img src="./images/photo_wide.jpg" onerror="this.src='https://via.placeholder.com/480x180?text=Wide+Photo'">
+                </div>
 
-                <!-- 나머지 사진들도 <div> 안에 넣어서 쭉 나열하시면 됩니다 -->
+                <!-- 원래의 photo5, photo6을 아래쪽 일반 크기(1칸)로 추가 -->
                 <div>
                     <img src="./images/photo5.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+5'">
                 </div>
                 <div>
                     <img src="./images/photo6.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+6'">
                 </div>
+                
+                <!-- 이후 사진들이 더 있다면 아래처럼 계속 추가하시면 됩니다 -->
+                <!--
+                <div><img src="./images/photo7.jpg"></div>
+                <div><img src="./images/photo8.jpg"></div>
+                -->
                 
             </div>
         </section>
