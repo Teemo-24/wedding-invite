@@ -39,7 +39,7 @@
         
         .cover-lettering { 
             position: absolute; 
-            top: 10px; /* 💡 화면 위쪽에서 40px 만큼의 여백을 둡니다. (원하시면 숫자를 조절하세요) */
+            top: 25px; /* 💡 화면 위쪽에서 25px 만큼의 여백을 둡니다. (원하시면 숫자를 조절하세요) */
             left: 50%; 
             transform: translateX(-50%); /* 💡 세로 중앙 정렬을 해제하고 가로 중앙 정렬만 유지합니다 */
             color: #fff; 
@@ -306,6 +306,35 @@
         // 팝업 배경을 터치해도 닫히도록 설정
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
+        });
+
+        // 4. 불펌 및 캡처 방지 (PC 우클릭 및 단축키 차단)
+        
+        // 마우스 우클릭 방지
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 텍스트 선택 방지 (모바일/PC 공통)
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        // PC 캡처 단축키 방지 (PrintScreen, Ctrl+P, Mac 캡처 등)
+        document.addEventListener('keydown', function(e) {
+            // 윈도우 PrintScreen 키 차단
+            if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                alert("사진 보호를 위해 캡처가 제한되어 있습니다.");
+                e.preventDefault();
+            }
+            // Ctrl + P (인쇄) 차단
+            if (e.ctrlKey && (e.key === 'p' || e.key === 'P')) {
+                e.preventDefault();
+            }
+            // Mac 캡처 단축키 (Cmd + Shift + 3/4 등) 일부 차단 시도
+            if (e.metaKey && e.shiftKey) {
+                e.preventDefault();
+            }
         });
     </script>
 </body>
