@@ -68,6 +68,20 @@
         .size-4x { grid-column: span 2; grid-row: span 2; }
         .size-2x-tall { grid-row: span 2; }
         .size-2x-wide { grid-column: span 2; }
+
+        /* 💡 1:1 비율 4장 한 줄 배치용 컨테이너 */
+        .row-of-4 { 
+            grid-column: span 2; /* 가로 2칸(전체)을 모두 차지 */
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); /* 내부를 4칸으로 쪼갬 */
+            gap: 10px; 
+            background-color: transparent !important; /* 부모 스타일 덮어쓰기 */
+            border-radius: 0 !important;
+            align-items: center; /* 1:1 비율을 유지하며 세로 중앙에 예쁘게 정렬 */
+        }
+        .row-of-4 div {
+            aspect-ratio: 1; /* 사진을 무조건 1:1 정사각형 비율로 강제 */
+        }
         
         /* 동영상 영역 */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px; border-radius: 8px; }
@@ -155,11 +169,13 @@
                 <!-- 일반 1칸 -->
                 <div><img src="./images/photo4.jpg" onerror="this.src='https://via.placeholder.com/240x180?text=Photo+4'"></div>
                 
-                <!-- 💡 [새로 추가된 부분] 1:1 비율(기본 1칸) 사진 4개 -->
-                <div><img src="./images/photo7.jpg" onerror="this.src='https://via.placeholder.com/240x240?text=Photo+7'"></div>
-                <div><img src="./images/photo8.jpg" onerror="this.src='https://via.placeholder.com/240x240?text=Photo+8'"></div>
-                <div><img src="./images/photo9.jpg" onerror="this.src='https://via.placeholder.com/240x240?text=Photo+9'"></div>
-                <div><img src="./images/photo10.jpg" onerror="this.src='https://via.placeholder.com/240x240?text=Photo+10'"></div>
+                <!-- 💡 [수정된 부분] 1:1 비율 사진 4개를 한 줄(4칸)에 나란히 배치 -->
+                <div class="row-of-4">
+                    <div><img src="./images/photo7.jpg" onerror="this.src='https://via.placeholder.com/120?text=P7'"></div>
+                    <div><img src="./images/photo8.jpg" onerror="this.src='https://via.placeholder.com/120?text=P8'"></div>
+                    <div><img src="./images/photo9.jpg" onerror="this.src='https://via.placeholder.com/120?text=P9'"></div>
+                    <div><img src="./images/photo10.jpg" onerror="this.src='https://via.placeholder.com/120?text=P10'"></div>
+                </div>
 
                 <!-- 와이드 액자형 (가로2 x 세로1) -->
                 <div class="size-2x-wide"><img src="./images/photo_wide.jpg" onerror="this.src='https://via.placeholder.com/480x180?text=Wide+Photo'"></div>
